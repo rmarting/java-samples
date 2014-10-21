@@ -1,4 +1,4 @@
-package org.redhat.samples.web;
+package com.redhat.samples.web;
 
 import java.io.IOException;
 
@@ -90,6 +90,12 @@ public class JBossLoggingServlet extends HttpServlet {
 		case "EXCEPTION":
 			LOGGER.error(message, new RuntimeException(
 					"This is a new RuntimeException"));
+			break;
+
+		case "EXCEPTION-BY":
+			LOGGER.error(message, new RuntimeException(
+					"This is a new RuntimeException",
+					new NullPointerException()));
 			break;
 
 		default:

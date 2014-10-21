@@ -8,7 +8,7 @@
 		<servlet-name>JBossLoggingServlet</servlet-name>
 		<display-name>JBossLoggingServlet</display-name>
 		<description>Servlet to log messages</description>
-		<servlet-class>org.redhat.samples.web.JBossLoggingServlet</servlet-class>
+		<servlet-class>com.redhat.samples.web.JBossLoggingServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JBossLoggingServlet</servlet-name>
