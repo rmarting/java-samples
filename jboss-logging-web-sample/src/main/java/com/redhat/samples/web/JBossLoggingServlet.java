@@ -94,8 +94,15 @@ public class JBossLoggingServlet extends HttpServlet {
 
 		case "EXCEPTION-BY":
 			LOGGER.error(message, new RuntimeException(
-					"This is a new RuntimeException",
-					new NullPointerException()));
+					"This is a new RuntimeException", new Exception(
+							"We are the cause")));
+			break;
+
+		case "EXCEPTION-BY2":
+			LOGGER.error(message, new RuntimeException(
+					"This is a new RuntimeException", new Exception(
+							"We are the cause", new Exception(
+									"We are the first cause"))));
 			break;
 
 		default:
