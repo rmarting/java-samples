@@ -78,11 +78,11 @@ public class DataSourceServlet extends HttpServlet {
         }
         // User credentials
         String user = null;
-        if (null != request.getParameter("user")) {
+        if (null != request.getParameter("user") && !"".equals(request.getParameter("user"))) {
             user = request.getParameter("user");
         }
         String pwd = null;
-        if (null != request.getParameter("pwd")) {
+        if (null != request.getParameter("pwd") && !"".equals(request.getParameter("pwd"))) {
             pwd = request.getParameter("pwd");
         }
 
@@ -131,5 +131,4 @@ public class DataSourceServlet extends HttpServlet {
         }
         out.println("</html>");
     }
-
 }
