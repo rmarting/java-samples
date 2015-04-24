@@ -11,8 +11,9 @@
 		<module>slf4j-sample</module>
 		<module>jboss-logging-web-sample</module>
     	<module>cluster-web-sample</module>
-    <module>datasource-web-sample</module>
-  </modules>
+    	<module>datasource-web-sample</module>
+    	<module>md5</module>
+  	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -58,6 +59,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -71,10 +73,12 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.7.Final</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
 				<configuration>
 					<classpathScope>test</classpathScope>
 				</configuration>
