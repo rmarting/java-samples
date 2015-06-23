@@ -10,28 +10,18 @@
 	<modules>
 		<module>slf4j-sample</module>
 		<module>jboss-logging-web-sample</module>
-    	<module>cluster-web-sample</module>
-    <module>datasource-web-sample</module>
+		<module>cluster-web-sample</module>
+		<module>datasource-web-sample</module>
+		<module>web-jee-sample</module>
+		<module>version-sample</module>
+    	<module>amq-sample</module>
+		<module>md5</module>
   </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.target>1.7</jdk.target>
 	</properties>
-
-	<!-- Conditionally include the assembly module -->
-	<profiles>
-		<profile>
-			<activation>
-				<file>
-					<exists>assembly</exists>
-				</file>
-			</activation>
-			<modules>
-				<module>assembly</module>
-			</modules>
-		</profile>
-	</profiles>
 
 	<dependencies>
 		<!-- Test -->
@@ -58,6 +48,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -69,12 +60,9 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
 				<configuration>
 					<classpathScope>test</classpathScope>
 				</configuration>
@@ -88,4 +76,57 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<!-- Conditionally include the assembly module -->
+			<activation>
+				<file>
+					<exists>assembly</exists>
+				</file>
+			</activation>
+			<modules>
+				<module>assembly</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>standalone</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>7.7.Final</version>
+						<configuration>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>domain</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>7.7.Final</version>
+						<configuration>
+							<domain>
+								<server-groups>
+									<server-group>main-server-group</server-group>
+								</server-groups>
+							</domain>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

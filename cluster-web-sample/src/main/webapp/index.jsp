@@ -1,3 +1,6 @@
+<%@ page language="java" session="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
 <html>
 <head>
     <title>Cluster Web Sample: Setting values in Session</title>
@@ -5,6 +8,7 @@
 <body>
 <center>
     <h1>Session Test App: Setting Values</h1>
+    
     <%
          session.setAttribute("SessionKey", "SessionKeyValue Set at " + new java.util.Date());
          System.out.println("index.jsp setAttribute() called on Session with value = " + (String) session.getAttribute("SessionKey"));
