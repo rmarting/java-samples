@@ -15,8 +15,9 @@
 		<module>web-jee-sample</module>
 		<module>version-sample</module>
     	<module>amq-sample</module>
-		<module>md5</module>
-  </modules>
+    	<module>datasource-web-sample</module>
+    	<module>md5</module>
+  	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,6 +61,14 @@
 				</executions>
 			</plugin>
 			<plugin>
+<<<<<<< HEAD
+=======
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.7.Final</version>
+			</plugin>
+			<plugin>
+>>>>>>> branch 'master' of https://github.com/rmarting/java-samples.git
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.4.0</version>
