@@ -61,14 +61,11 @@
 				</executions>
 			</plugin>
 			<plugin>
-<<<<<<< HEAD
-=======
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.7.Final</version>
 			</plugin>
 			<plugin>
->>>>>>> branch 'master' of https://github.com/rmarting/java-samples.git
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.4.0</version>

@@ -73,7 +73,7 @@ NOTE: The final uri depends of Fuse topology used (standalone, fabric)
                     -->
                     <!-- Config AMQ Fabric -->
                     <config-property name="ServerUrl">
-                        failover:(tcp://<local-ip>:<amq.port>,tcp://localhost:<amq.port>)?jms.rmIdFromConnectionId=true&amp;maxReconnectAttempts=10
+                        failover:(tcp://<local-ip>:<amq.port>,tcp://localhost:<amq.port>)?jms.rmIdFromConnectionId=true&amp;backup=true&amp;maxReconnectAttempts=10
                     </config-property>
                     <connection-definitions>
                         <connection-definition class-name="org.apache.activemq.ra.ActiveMQManagedConnectionFactory" 
