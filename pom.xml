@@ -17,6 +17,7 @@
     	<module>amq-sample</module>
     	<module>datasource-web-sample</module>
     	<module>md5</module>
+    	<module>axis1-ws-security</module>
   	</modules>
 
 	<properties>
