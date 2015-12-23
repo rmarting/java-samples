@@ -1,0 +1,16 @@
+body {
+    font-family: verdana;
+    font-style: normal;	
+}
+
+h1 {
+	border-color: red;
+	background-color: #bbccaa;
+	font-family: arial;
+	font-size: x-large;
+	font-color: red;
+}
+
+h2 {
+  background-color: #ac6632;
+}

@@ -1,0 +1,24 @@
+<assembly>
+	<id>static</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<fileSets>
+		<fileSet>
+			<directory>src/main/webapp</directory>
+			<includes>
+				<include>**/*.html</include>
+				<include>**/*.htm</include>
+				<include>**/*.jpg</include>
+				<include>**/*.gif</include>
+				<include>**/*.css</include>
+				<include>**/*.js</include>
+			</includes>
+			<excludes>
+				<exclude>WEB-INF/*</exclude>
+			</excludes>
+			<outputDirectory>/${finalName}</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>

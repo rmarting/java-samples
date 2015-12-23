@@ -4,9 +4,18 @@
 <html>
 <head>
     <title>Cluster Web Sample: Setting values in Session</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body>
 <center>
+    <table border="1">
+    <tr>
+      <td><img src="img/rh1.jpg"/></td>
+      <td><img src="img/rh2.jpg"/></td>
+    </tr>
+    </table>
+  
     <h1>Session Test App: Setting Values</h1>
     
     <%
@@ -25,5 +34,8 @@
  Which is useful to check whether it's a new HttpSession with new Attribute or the replicated HttpSession with the same attribute.
 <br/>
 As many times you will refresh the "index.jsp" page a new HttpSession attribute will be added with current TimeStamp.
+<br/><br/>
+<a href="" onclick="showAlert('Testing JavaScript')">Click here to test JavaScript Functions</a>
+
 </body>
 </html>

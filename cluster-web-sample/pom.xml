@@ -53,5 +53,139 @@
 
 	<build>
 		<finalName>cluster-web-sample</finalName>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>2.8</version>
+			</extension>
+		</extensions>
+
+		<plugins>
+			<plugin>
+				<!-- assamble static content -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/static.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- To Copy Static Content -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>wagon-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<serverId>${deploy.serverId}</serverId>
+				</configuration>
+				<executions>
+					<execution>
+						<id>upload-static-content-to-server</id>
+						<phase>${deploy.phase}</phase>
+						<goals>
+							<goal>upload-single</goal>
+						</goals>
+						<configuration>
+							<fromFile>${project.build.directory}/${project.build.finalName}-static.zip</fromFile>
+							<url>scp://${deploy.host}:${deploy.module.path}</url>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<inherited>false</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>${deploy.phase}</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<target>
+								<!-- SSH -->
+								<taskdef name="sshexec"
+									classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec"
+									classpathref="maven.plugin.classpath" />
+
+								<echo>Unzip static content into Web Server</echo>
+								<!-- calls deploy script -->
+								<sshexec host="${deploy.host}" trust="yes" 
+								  username="${deploy.username}" password="${deploy.password}"
+									command="sh /var/www/html/unzip-static.sh /var/www/html/${project.build.finalName}-static.zip" />
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-commons-net</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-jsch</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+					<dependency>
+						<groupId>jsch</groupId>
+						<artifactId>jsch</artifactId>
+						<version>0.1.29</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>lab</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<deploy.serverId>rhel-lab</deploy.serverId>
+				<deploy.host>rhel6-jboss-master</deploy.host>
+				<deploy.username>root</deploy.username>
+				<deploy.password>RedHat-1</deploy.password>
+				<deploy.module.path>/var/www/html</deploy.module.path>
+				<deploy.phase>install</deploy.phase>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jboss.as.plugins</groupId>
+						<artifactId>jboss-as-maven-plugin</artifactId>
+						<version>7.7.Final</version>
+						<configuration>
+						  <id>eap-lab</id>
+							<hostname>${deploy.host}</hostname>
+							<domain>
+								<server-groups>
+									<server-group>app-web-group</server-group>
+								</server-groups>
+							</domain>
+							<force>true</force>
+							<deployEnabled>true</deployEnabled>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
