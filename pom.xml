@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.redhat.samples</groupId>
 	<artifactId>java-samples-parent</artifactId>
@@ -14,11 +15,11 @@
 		<module>datasource-web-sample</module>
 		<module>web-jee-sample</module>
 		<module>version-sample</module>
-    	<module>amq-sample</module>
-    	<module>datasource-web-sample</module>
-    	<module>md5</module>
-    	<module>axis1-ws-security</module>
-  	</modules>
+		<module>amq-sample</module>
+		<module>md5</module>
+		<module>axis1-ws-security</module>
+		<module>jboss-module-sample</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,6 +49,14 @@
 				</configuration>
 			</plugin>
 			<plugin>
+			 <groupId>org.apache.maven.plugins</groupId>
+			 <artifactId>maven-surefire-plugin</artifactId>
+			 <version>2.19</version>
+			 <configuration>
+			   
+			 </configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>2.4</version>
@@ -60,11 +69,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.jboss.as.plugins</groupId>
-				<artifactId>jboss-as-maven-plugin</artifactId>
-				<version>7.7.Final</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -97,24 +101,7 @@
 			</modules>
 		</profile>
 		<profile>
-			<id>standalone</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.jboss.as.plugins</groupId>
-						<artifactId>jboss-as-maven-plugin</artifactId>
-						<version>7.7.Final</version>
-						<configuration>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>domain</id>
+			<id>rhel6-domain</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
@@ -124,13 +111,17 @@
 						<groupId>org.jboss.as.plugins</groupId>
 						<artifactId>jboss-as-maven-plugin</artifactId>
 						<version>7.7.Final</version>
-						<configuration>
-							<domain>
-								<server-groups>
-									<server-group>main-server-group</server-group>
-								</server-groups>
-							</domain>
-						</configuration>
+            <configuration>
+              <id>rhel6-domain</id>
+              <hostname>rhel6-jboss-master</hostname>
+              <domain>
+                <server-groups> 
+                  <server-group>main-server-group</server-group> 
+                </server-groups>
+              </domain>
+              <force>true</force>
+              <deployEnabled>true</deployEnabled>
+            </configuration>
 					</plugin>
 				</plugins>
 			</build>
